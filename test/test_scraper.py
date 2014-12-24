@@ -6,15 +6,13 @@ https://github.com/codenameyau/cultivate
 from languages import scraper
 import unittest
 
-class TestLanguagesScraper(unittest.TestCase):
+class TestTatoebaScraper(unittest.TestCase):
     """
-    Test Suite: LanguageScraper
+    Test Suite: TatoebaScraper
     """
 
     def setUp(self):
-        self.json_file = 'test/data/topics.json'
-        self.scraper = scraper.LanguageScraper(self.json_file)
-        self.expected_topics = ['house', 'cat']
+        self.scraper = scraper.TatoebaScraper()
 
     def test_set_language(self):
         """
@@ -33,21 +31,6 @@ class TestLanguagesScraper(unittest.TestCase):
         self.scraper.set_languages('eng', 'lol')
         self.assertEqual(self.scraper.language_from, 'jpn')
         self.assertEqual(self.scraper.language_to, 'eng')
-
-    def test_load_topics(self):
-        """
-        Tests that topics are loaded from file
-        """
-        topics = self.scraper.topics
-        self.assertListEqual(topics, self.expected_topics)
-        self.assertEqual(len(topics), len(self.expected_topics))
-
-    def test_get_random_topic(self):
-        """
-        Tests that a random topic is returned
-        """
-        random_topic = self.scraper.get_random_topic()
-        self.assertTrue(random_topic in self.expected_topics)
 
 
 if __name__ == '__main__':

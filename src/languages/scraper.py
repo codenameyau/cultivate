@@ -8,17 +8,15 @@ import random
 import json
 import bs4
 
-class LanguageScraper:
+class TatoebaScraper:
 
-    def __init__(self, topics_file):
+    def __init__(self):
         """
-        Constructor: (String) -> LanguageScraper
+        Constructor: (String) -> TatoebaScraper
         Sets up the class data structures
         """
-        # Define topics to study
-        self.topics = []
-        self.topics_file = topics_file
-        self._load_topics()
+        # Define site path to scrape
+        self.site_url = 'http://tatoeba.org/eng/sentences/search/'
 
         # Define language settings
         self.language_from = 'eng'
@@ -42,22 +40,21 @@ class LanguageScraper:
             self.language_from = language_from
             self.language_to = language_to
 
-    def get_random_topic(self):
+    def retrieve_content(self, topic):
         """
-        Public: None -> String
-        Returns a random topic from self.topics
+        Public: (String) -> String
+        Returns the HTML from request
         """
-        return random.choice(self.topics)
+        pass
 
 
     ####################
     # Internal Methods #
     ####################
-    def _load_topics(self):
+    def _build_query_url(self, topic):
         """
-        Internal: None -> None
-        Loads the json content from topics
+        Internal: (String) -> String
+        Returns the url for scraping
         """
-        with open(self.topics_file, 'r') as json_file:
-            self.topics = json.load(json_file)["topics"]
-
+        # First find out how many pages
+        pass
