@@ -23,6 +23,8 @@ class TatoebaScraper:
 
         # Define site path to scrape
         self.site_url = 'http://tatoeba.org/eng/sentences/show/' + self.language_to
+        self.data = {}
+        self.soup = None
 
 
     ##################
@@ -51,18 +53,35 @@ class TatoebaScraper:
         Scrapes the site and finds target article
         """
         res = requests.get(self.site_url)
-        data = {}
         if res.status_code == 200:
-            soup = bs4.BeautifulSoup(res.content)
-
-            # Find sentence id
-            data['sentence_id'] = soup.find(id='SentenceSentenceId').attrs['value']
-
-            # Find sentences and translations
-            sentences = soup.find_all('div', class_='sentenceContent')
-            print type(sentences)
-        print data
+            self.soup = bs4.BeautifulSoup(res.content)
+            self._find_sentence_id()
+            self._find_main_sentence()
+            self._find_translations()
+        print self.data
 
     ####################
     # Internal Methods #
     ####################
+    def _find_sentence_id(self):
+        """
+        Internal: None -> None
+        Stores the sentence id into data
+        """
+        self.data['sentence_id'] = self.soup.find(id='SentenceSentenceId').attrs['value']
+
+    def _find_main_sentence(self):
+        """
+        Internal: None -> None
+        Stores the main sentence into data
+        """
+        div = self.soup.find('div', class_='mainSentence')
+        self.data['main_sentence'] = div.find('div', class_='text').string
+        self.data['main_romaji'] = div.find('div', class_='romanization').attrs['title']
+
+    def _find_translations(self):
+        """
+        Internal: None -> None
+        Finds all additional translations and store in data
+        """
+        pass
