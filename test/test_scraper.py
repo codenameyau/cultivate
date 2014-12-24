@@ -9,10 +9,25 @@ import unittest
 class TestLanguagesScraper(unittest.TestCase):
 
     def setUp(self):
-        pass
+        self.scraper = scraper.LanguageScraper()
 
-    def test_scraper(self):
-        self.assertEqual(scraper.print_test(), 1)
+    def test_set_language(self):
+        """
+        Tests that languages are set correctly
+        """
+        # Test for default languages
+        self.assertEqual(self.scraper.language_from, 'eng')
+        self.assertEqual(self.scraper.language_to, 'jpn')
+
+        # Test after setting supported languages
+        self.scraper.set_languages('jpn', 'eng')
+        self.assertEqual(self.scraper.language_from, 'jpn')
+        self.assertEqual(self.scraper.language_to, 'eng')
+
+        # Test after setting non-supported languages
+        self.scraper.set_languages('eng', 'lol')
+        self.assertEqual(self.scraper.language_from, 'jpn')
+        self.assertEqual(self.scraper.language_to, 'eng')
 
 
 if __name__ == '__main__':

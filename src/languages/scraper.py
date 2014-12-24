@@ -15,18 +15,18 @@ class LanguageScraper:
         """
         self.language_from = 'eng'
         self.language_to = 'jpn'
-        self.supported_languages = set(
+        self.supported_languages = (
             'eng',
             'jpn',
         )
 
-    def set_language(self, language_from, language_to):
+    def set_languages(self, language_from, language_to):
         """
         Public: (String, String) -> None
         Sets the languages for the scraper
         """
-        if language_from in self.supported_languages:
+        if language_from in self.supported_languages \
+            and language_to in self.supported_languages:
             self.language_from = language_from
-        if language_to in self.supported_languages:
             self.language_to = language_to
 
