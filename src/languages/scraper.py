@@ -4,9 +4,9 @@ Apache License (c) 2015
 https://github.com/codenameyau/cultivate
 """
 import requests
+import random
 import json
 import bs4
-import os
 
 class LanguageScraper:
 
@@ -28,6 +28,7 @@ class LanguageScraper:
             'jpn',
         )
 
+
     ##################
     # Public Methods #
     ##################
@@ -41,6 +42,13 @@ class LanguageScraper:
             self.language_from = language_from
             self.language_to = language_to
 
+    def get_random_topic(self):
+        """
+        Public: None -> String
+        Returns a random topic from self.topics
+        """
+        return random.choice(self.topics)
+
 
     ####################
     # Internal Methods #
@@ -52,3 +60,4 @@ class LanguageScraper:
         """
         with open(self.topics_file, 'r') as json_file:
             self.topics = json.load(json_file)["topics"]
+

@@ -7,10 +7,14 @@ from languages import scraper
 import unittest
 
 class TestLanguagesScraper(unittest.TestCase):
+    """
+    Test Suite: LanguageScraper
+    """
 
     def setUp(self):
         self.json_file = 'test/data/topics.json'
         self.scraper = scraper.LanguageScraper(self.json_file)
+        self.expected_topics = ['house', 'cat']
 
     def test_set_language(self):
         """
@@ -35,7 +39,15 @@ class TestLanguagesScraper(unittest.TestCase):
         Tests that topics are loaded from file
         """
         topics = self.scraper.topics
-        self.assertListEqual(topics, ['house'])
+        self.assertListEqual(topics, self.expected_topics)
+        self.assertEqual(len(topics), len(self.expected_topics))
+
+    def test_get_random_topic(self):
+        """
+        Tests that a random topic is returned
+        """
+        random_topic = self.scraper.get_random_topic()
+        self.assertTrue(random_topic in self.expected_topics)
 
 
 if __name__ == '__main__':
