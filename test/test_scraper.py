@@ -9,7 +9,8 @@ import unittest
 class TestLanguagesScraper(unittest.TestCase):
 
     def setUp(self):
-        self.scraper = scraper.LanguageScraper()
+        self.json_file = 'test/data/topics.json'
+        self.scraper = scraper.LanguageScraper(self.json_file)
 
     def test_set_language(self):
         """
@@ -28,6 +29,13 @@ class TestLanguagesScraper(unittest.TestCase):
         self.scraper.set_languages('eng', 'lol')
         self.assertEqual(self.scraper.language_from, 'jpn')
         self.assertEqual(self.scraper.language_to, 'eng')
+
+    def test_load_topics(self):
+        """
+        Tests that topics are loaded from file
+        """
+        topics = self.scraper.topics
+        self.assertListEqual(topics, ['house'])
 
 
 if __name__ == '__main__':

@@ -4,15 +4,23 @@ Apache License (c) 2015
 https://github.com/codenameyau/cultivate
 """
 import requests
+import json
 import bs4
+import os
 
 class LanguageScraper:
 
-    def __init__(self):
+    def __init__(self, topics_file):
         """
-        Constructor: None -> None
+        Constructor: (String) -> LanguageScraper
         Sets up the class data structures
         """
+        # Define topics to study
+        self.topics = []
+        self.topics_file = topics_file
+        self._load_topics()
+
+        # Define language settings
         self.language_from = 'eng'
         self.language_to = 'jpn'
         self.supported_languages = (
@@ -20,6 +28,9 @@ class LanguageScraper:
             'jpn',
         )
 
+    ##################
+    # Public Methods #
+    ##################
     def set_languages(self, language_from, language_to):
         """
         Public: (String, String) -> None
@@ -30,3 +41,14 @@ class LanguageScraper:
             self.language_from = language_from
             self.language_to = language_to
 
+
+    ####################
+    # Internal Methods #
+    ####################
+    def _load_topics(self):
+        """
+        Internal: None -> None
+        Loads the json content from topics
+        """
+        with open(self.topics_file, 'r') as json_file:
+            self.topics = json.load(json_file)["topics"]
