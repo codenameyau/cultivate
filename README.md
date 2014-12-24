@@ -1,4 +1,5 @@
 cultivate
 =========
 
-Passively learn languages from your terminal
+I spend a lot of time staring at black boxes.
+So why not learn Japanaese in the meantime.
