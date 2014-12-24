@@ -7,9 +7,6 @@ from languages import scraper
 import unittest
 
 class TestTatoebaScraper(unittest.TestCase):
-    """
-    Test Suite: TatoebaScraper
-    """
 
     def setUp(self):
         self.scraper = scraper.TatoebaScraper()
@@ -32,6 +29,12 @@ class TestTatoebaScraper(unittest.TestCase):
         self.assertEqual(self.scraper.language_from, 'jpn')
         self.assertEqual(self.scraper.language_to, 'eng')
 
+    def test_get_random_sentece(self):
+        """
+        Tests that a random sentence is returned
+        """
+        self.scraper.get_random_sentence()
+        self.assertTrue(False)
 
 if __name__ == '__main__':
     unittest.main()
