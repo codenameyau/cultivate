@@ -38,15 +38,30 @@ class TatoebaScraper:
             self.language_from = language_from
             self.language_to = language_to
 
+    def set_url(self, specified_url):
+        """
+        Public: (String) -> None
+        Sets the site_url to specified url
+        """
+        self.site_url = specified_url
+
     def get_random_sentence(self):
         """
         Public: None -> String
         Scrapes the site and finds target article
         """
         res = requests.get(self.site_url)
+        data = {}
         if res.status_code == 200:
             soup = bs4.BeautifulSoup(res.content)
-            print soup.prettify()
+
+            # Find sentence id
+            data['sentence_id'] = soup.find(id='SentenceSentenceId').attrs['value']
+
+            # Find sentences and translations
+            sentences = soup.find_all('div', class_='sentenceContent')
+            print type(sentences)
+        print data
 
     ####################
     # Internal Methods #

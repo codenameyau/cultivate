@@ -10,6 +10,7 @@ class TestTatoebaScraper(unittest.TestCase):
 
     def setUp(self):
         self.scraper = scraper.TatoebaScraper()
+        self.scraper.set_url('http://tatoeba.org/eng/sentences/show/94899')
 
     def test_set_language(self):
         """
