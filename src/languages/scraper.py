@@ -84,4 +84,12 @@ class TatoebaScraper:
         Internal: None -> None
         Finds all additional translations and store in data
         """
-        pass
+        results = {}
+        div = self.soup.find('div', class_='translations')
+        translations = div.find_all('a', class_='text')
+        flags = div.find_all('img', class_='languageFlag')
+        for i in range(0, len(translations)):
+            print translations[i].string
+            print flags[i].attrs['alt']
+            print flags[i].attrs['title']
+            print
