@@ -30,13 +30,5 @@ class TestTatoebaScraper(unittest.TestCase):
         self.assertEqual(self.scraper.language_translated, 'jpn')
         self.assertEqual(self.scraper.language_original, 'eng')
 
-    def test_get_random_sentece(self):
-        """
-        Tests that a random sentence is returned
-        """
-        pass
-        # self.scraper.get_random_sentence()
-        # self.assertTrue(False)
-
 if __name__ == '__main__':
     unittest.main()

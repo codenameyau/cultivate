@@ -23,7 +23,7 @@ class TatoebaScraper:
 
         # Define site path to scrape
         self.site_url = 'http://tatoeba.org/eng/sentences/show/' + self.language_original
-        self.data = {}
+        self.sentences = []
         self.soup = None
 
 
@@ -47,49 +47,59 @@ class TatoebaScraper:
         """
         self.site_url = specified_url
 
-    def get_random_sentence(self):
+    def get_random_sentences(self, count):
         """
         Public: None -> String
         Scrapes the site and finds target article
         """
-        res = requests.get(self.site_url)
-        if res.status_code == 200:
-            self.soup = bs4.BeautifulSoup(res.content)
-            self._find_sentence_id()
-            self._find_main_sentence()
-            self._find_translations()
-        print self.data
+        self.sentences = []
+        for i in range(0, count):
+            res = requests.get(self.site_url)
+            if res.status_code == 200:
+                data = {}
+                self.soup = bs4.BeautifulSoup(res.content)
+                self._find_sentence_id(data)
+                self._find_original_sentence(data)
+                self._find_translations(data)
+                self.sentences.append(data)
+        return self.sentences
 
     ####################
     # Internal Methods #
     ####################
-    def _find_sentence_id(self):
+    def _find_sentence_id(self, data):
         """
         Internal: None -> None
         Stores the sentence id into data
         """
-        self.data['sentence_id'] = self.soup.find(id='SentenceSentenceId').attrs['value']
+        data['sentence_id'] = self.soup.find(id='SentenceSentenceId').attrs['value']
 
-    def _find_main_sentence(self):
+    def _find_original_sentence(self, data):
         """
         Internal: None -> None
         Stores the main sentence into data
         """
         div = self.soup.find('div', class_='mainSentence')
-        self.data['main_sentence'] = div.find('div', class_='text').string
-        self.data['main_romaji'] = div.find('div', class_='romanization').attrs['title']
+        data['original'] = {
+            'sentence': div.find('div', class_='text').string,
+            'romanization': div.find('div', class_='romanization').attrs['title']
+        }
 
-    def _find_translations(self):
+    def _find_translations(self, data):
         """
         Internal: None -> None
         Finds all additional translations and store in data
         """
-        results = {}
+        # [TODO]: Add romanization in data
+        data['translations'] = {}
+
+        # Scrape alt flag name and translation text
         div = self.soup.find('div', class_='translations')
         translations = div.find_all('a', class_='text')
         flags = div.find_all('img', class_='languageFlag')
         for i in range(0, len(translations)):
-            print translations[i].string
-            print flags[i].attrs['alt']
-            print flags[i].attrs['title']
-            print
+            lang_short = flags[i].attrs['alt']
+            data['translations'][lang_short] = {
+                'sentence': translations[i].string,
+                'language': flags[i].attrs['title'],
+            }

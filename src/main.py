@@ -6,9 +6,15 @@ https://github.com/codenameyau/cultivate
 from tatoeba import scraper
 
 def main():
-    s = scraper.TatoebaScraper()
-    s.set_url('http://tatoeba.org/eng/sentences/show/94899')
-    s.get_random_sentence()
+    """
+    Runs main program to parse arguments and retrieve
+    random sentences from tatoeba.
+    """
+    scrape = scraper.TatoebaScraper()
+    results = scrape.get_random_sentences(1)
+    for i in range(len(results)):
+        print results[i]
+        print
 
 if __name__ == '__main__':
     main()
