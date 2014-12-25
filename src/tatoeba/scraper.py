@@ -17,12 +17,15 @@ class TatoebaScraper:
         self.language_original = 'jpn'
         self.language_translated = 'eng'
         self.supported_languages = (
-            'eng',
-            'jpn',
+            'cmn',  # Chinese
+            'eng',  # English
+            'jpn',  # Japanese
+            'spa',  # Spanish
         )
 
         # Define site path to scrape random sentence
-        self.site_url = 'http://tatoeba.org/eng/sentences/show/' + self.language_original
+        self.site_base = 'http://tatoeba.org/eng/sentences/show/'
+        self.site_url = self.site_base + self.language_original
         self.sentences = []
         self.soup = None
 
@@ -39,6 +42,7 @@ class TatoebaScraper:
             and original in self.supported_languages:
             self.language_translated = translated
             self.language_original = original
+            self.site_url = self.site_base + self.language_original
 
     def set_url(self, specified_url):
         """
@@ -74,20 +78,28 @@ class TatoebaScraper:
         """
         data['sentence_id'] = self.soup.find(id='SentenceSentenceId').attrs['value']
 
+    def _add_romanization(self, div, data):
+        """
+        Internal: (Tag, Dict) -> None
+        """
+        romanization = div.find('div', class_='romanization')
+        if romanization:
+            if 'title' in romanization.attrs:
+                data['romanization'] = romanization.attrs['title']
+
     def _find_original_sentence(self, data):
         """
-        Internal: None -> None
+        Internal: (Dict) -> None
         Stores the main sentence into data
         """
         div = self.soup.find('div', class_='mainSentence')
-        data['original'] = {
-            'sentence': div.find('div', class_='text').string,
-            'romanization': div.find('div', class_='romanization').attrs['title']
-        }
+        data['original'] = {}
+        data['original']['sentence'] = div.find('div', class_='text').string
+        self._add_romanization(div, data['original'])
 
     def _find_translations(self, data):
         """
-        Internal: None -> None
+        Internal: (Dict) -> None
         Finds all additional translations and store in data
         """
         # [TODO]: Add romanization in data
@@ -102,4 +114,4 @@ class TatoebaScraper:
             data['translations'][lang_short] = {
                 'sentence': translations[i].string,
                 'language': flags[i].attrs['title'],
-            }
+                }
