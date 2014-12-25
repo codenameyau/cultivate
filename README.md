@@ -4,12 +4,6 @@ cultivate
 I spend a lot of time staring at black boxes.
 So why not learn Japanaese in the meantime.
 
-###Installation
-1. Clone this repository
-2. Make a new virtualenv
-3. Run: `pip install -r requirements.txt`
-4. Run main.py: `python main.py -l jpn`
-
 ###Demo Output
 ```
 $ python main.py -l jpn
@@ -25,13 +19,20 @@ You must not give up.
 
 ```
 
+###Installation
+1. Clone this repository
+2. Make a new virtualenv
+3. Run: `pip install -r requirements.txt`
+4. Run main.py: `python main.py -l jpn`
+
+
 ###Supported Languages
-'cmn': Chinese
-'deu': German
-'eng': English
-'fin': Finnish
-'fra': French
-'ita': Italian
-'jpn': Japanese
-'kor': Korean
-'spa': Spanish
+- 'cmn': Chinese
+- 'deu': German
+- 'eng': English
+- 'fin': Finnish
+- 'fra': French
+- 'ita': Italian
+- 'jpn': Japanese
+- 'kor': Korean
+- 'spa': Spanish
