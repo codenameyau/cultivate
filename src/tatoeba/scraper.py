@@ -10,7 +10,7 @@ class TatoebaScraper:
 
     def __init__(self):
         """
-        Constructor: (String) -> TatoebaScraper
+        Constructor: (String, String) -> TatoebaScraper
         Sets up the class data structures
         """
         # Define language settings
@@ -21,7 +21,7 @@ class TatoebaScraper:
             'jpn',
         )
 
-        # Define site path to scrape
+        # Define site path to scrape random sentence
         self.site_url = 'http://tatoeba.org/eng/sentences/show/' + self.language_original
         self.sentences = []
         self.soup = None
@@ -30,15 +30,15 @@ class TatoebaScraper:
     ##################
     # Public Methods #
     ##################
-    def set_languages(self, language_translated, language_original):
+    def set_languages(self, original, translated):
         """
         Public: (String, String) -> None
         Sets the languages for the scraper
         """
-        if language_translated in self.supported_languages \
-            and language_original in self.supported_languages:
-            self.language_translated = language_translated
-            self.language_original = language_original
+        if translated in self.supported_languages \
+            and original in self.supported_languages:
+            self.language_translated = translated
+            self.language_original = original
 
     def set_url(self, specified_url):
         """
