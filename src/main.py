@@ -3,7 +3,7 @@ Cultivate - main.py
 Apache License (c) 2015
 https://github.com/codenameyau/cultivate
 """
-from languages import scraper
+from tatoeba import scraper
 
 def main():
     s = scraper.TatoebaScraper()
