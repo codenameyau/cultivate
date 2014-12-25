@@ -18,8 +18,13 @@ class TatoebaScraper:
         self.language_translated = 'eng'
         self.supported_languages = (
             'cmn',  # Chinese
+            'deu',  # German
             'eng',  # English
+            'fin',  # Finnish
+            'fra',  # French
+            'ita',  # Italian
             'jpn',  # Japanese
+            'kor',  # Korean
             'spa',  # Spanish
         )
 
