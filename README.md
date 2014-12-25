@@ -6,7 +6,7 @@ So why not learn Japanaese in the meantime.
 
 ###Demo Output
 ```
-$ python main.py -l jpn
+$ python cultivate.py -l jpn
 
 ------------------------------
 Tatoeba Sentence ID: 1771762
@@ -23,7 +23,7 @@ You must not give up.
 1. Clone this repository
 2. Make a new virtualenv
 3. Run: `pip install -r requirements.txt`
-4. Run main.py: `python main.py -l jpn`
+4. Run: `python cultivate.py -l jpn`
 
 
 ###Supported Languages
