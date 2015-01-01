@@ -56,6 +56,19 @@ class TatoebaScraper:
         """
         self.site_url = specified_url
 
+    def scrape_sentence(self, res):
+        """
+        Public: None -> String
+        Returns the scraped content from response
+        """
+        data = {}
+        if res.status_code == 200:
+            self.soup = bs4.BeautifulSoup(res.content)
+            self._find_sentence_id(data)
+            self._find_original_sentence(data)
+            self._find_translations(data)
+        return data
+
     def get_random_sentences(self, count):
         """
         Public: None -> String
@@ -63,14 +76,9 @@ class TatoebaScraper:
         """
         self.sentences = []
         for i in range(0, count):
-            res = requests.get(self.site_url)
-            if res.status_code == 200:
-                data = {}
-                self.soup = bs4.BeautifulSoup(res.content)
-                self._find_sentence_id(data)
-                self._find_original_sentence(data)
-                self._find_translations(data)
-                self.sentences.append(data)
+            scraped = self.scrape_sentence(requests.get(self.site_url))
+            if scraped:
+                self.sentences.append(scraped)
         return self.sentences
 
     ####################
