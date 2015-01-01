@@ -24,9 +24,8 @@ You must not give up.
 2. Run: `pip install -r requirements.txt`
 3. Run: `python cultivate.py -l jpn`
 
-To take advatange of this program, you can create
-an alias in your `.bashrc` and/or run it everytime
-you open a new terminal, like so:
+To take advatange of this program, you can create an alias in
+your `.bashrc` and/or run it everytime you open a new terminal, like so:
 
 ```bash
 ...
@@ -43,4 +42,6 @@ cultivate -l jpn
 - 'ita': Italian
 - 'jpn': Japanese
 - 'kor': Korean
+- 'pol': Polish
+- 'por': Portuguese
 - 'spa': Spanish

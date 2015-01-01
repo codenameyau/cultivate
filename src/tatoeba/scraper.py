@@ -25,6 +25,9 @@ class TatoebaScraper:
             'ita',  # Italian
             'jpn',  # Japanese
             'kor',  # Korean
+            'pol',  # Polish
+            'por',  # Portuguese
+            'rus',  # Russian
             'spa',  # Spanish
         )
 
