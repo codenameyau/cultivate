@@ -1,5 +1,5 @@
 """
-Cultivate - main.py
+Cultivate - cultivate.py
 Apache License (c) 2015
 https://github.com/codenameyau/cultivate
 """
@@ -19,10 +19,17 @@ def main():
     parser.add_argument('-n', type=int, default=0, help='sentence id')
     args = parser.parse_args()
 
-    # Run scraper on tatoeba
+    # Setup scraper for tatoeba
     scrape = scraper.TatoebaScraper()
     scrape.set_languages(args.l, args.t)
-    results = scrape.get_random_sentences(args.c)
+    results = []
+
+    # Retrieve sentence by id or get random sentence
+    if args.n > 0:
+        results += scrape.get_sentence_by_id(args.n)
+    else:
+        results += scrape.get_random_sentences(args.c)
+
     for i in range(len(results)):
         data = results[i]
 

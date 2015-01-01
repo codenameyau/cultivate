@@ -47,18 +47,18 @@ class TatoebaScraper:
             and original in self.supported_languages:
             self.language_translated = translated
             self.language_original = original
-            self.site_url = self.site_base + self.language_original
+            self.set_url(self.language_original)
 
-    def set_url(self, specified_url):
+    def set_url(self, target):
         """
         Public: (String) -> None
         Sets the site_url to specified url
         """
-        self.site_url = specified_url
+        self.site_url = self.site_base + target
 
     def scrape_sentence(self, res):
         """
-        Public: None -> String
+        Public: (Response) -> String
         Returns the scraped content from response
         """
         data = {}
@@ -71,15 +71,26 @@ class TatoebaScraper:
 
     def get_random_sentences(self, count):
         """
-        Public: None -> String
+        Public: (Int) -> String
         Scrapes the site and finds target article
         """
-        self.sentences = []
         for i in range(0, count):
             scraped = self.scrape_sentence(requests.get(self.site_url))
             if scraped:
                 self.sentences.append(scraped)
         return self.sentences
+
+    def get_sentence_by_id(self, sentence_id):
+        """
+        Public: (Int) -> String
+        Returns the scraped sentence by the given id
+        """
+        self.set_url(str(sentence_id))
+        scraped = self.scrape_sentence(requests.get(self.site_url))
+        if scraped:
+            self.sentences.append(scraped)
+        return self.sentences
+
 
     ####################
     # Internal Methods #
@@ -115,7 +126,7 @@ class TatoebaScraper:
         Internal: (Dict) -> None
         Finds all additional translations and store in data
         """
-        # [TODO]: Add romanization in data
+        # [TODO]: Add romanization other languages
         data['translations'] = {}
 
         # Scrape alt flag name and translation text
