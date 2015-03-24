@@ -34,14 +34,16 @@ cultivate -l jpn
 ```
 
 ###Supported Languages
-- 'cmn': Chinese
-- 'deu': German
-- 'eng': English
-- 'fin': Finnish
-- 'fra': French
-- 'ita': Italian
-- 'jpn': Japanese
-- 'kor': Korean
-- 'pol': Polish
-- 'por': Portuguese
-- 'spa': Spanish
+```
+'cmn': Chinese
+'deu': German
+'eng': English
+'fin': Finnish
+'fra': French
+'ita': Italian
+'jpn': Japanese
+'kor': Korean
+'pol': Polish
+'por': Portuguese
+'spa': Spanish
+```
